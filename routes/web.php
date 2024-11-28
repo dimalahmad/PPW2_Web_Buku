@@ -3,6 +3,7 @@
 use App\Http\Controllers;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BooksController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\SendEmailController;
 use App\Http\Controllers\Auth\LoginRegisterController;
 
@@ -23,6 +24,12 @@ Route::middleware('auth')->group(function () {
         Route::post('/store-buku', [BooksController::class, 'store'])->name('buku.store');
         Route::get('/buku/{id}/edit', [BooksController::class, 'edit'])->name('edit');
         Route::put('/buku/{id}/update', [BooksController::class, 'update'])->name('update');
+        
+        Route::get('/reviews/{id}/show/', [ReviewController::class, 'show'])->name('reviews.show');
+        Route::get('/reviews/create', [ReviewController::class, 'index'])->name('reviews.create');
+        Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+
+        Route::get('/tags/{tag}', [ReviewController::class, 'showBooksByTag'])->name('tags.show');
     });
 });
 

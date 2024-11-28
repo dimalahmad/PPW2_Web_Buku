@@ -28,7 +28,19 @@
                             @endif
                         </div>
                     </div>
-
+                    <!-- <div class="mb-3 row">
+                        <label for="role" class="col-md-4 col-form-label text-md-end text-start">Pilih Role</label>
+                        <div class="col-md-6">
+                            <select class="form-control @error('role') is-invalid @enderror" id="role" name="role">
+                                <option value="user" {{ old('role') == 'user' ? 'selected' : '' }}>User</option>
+                                <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
+                                <option value="internal_reviewer" {{ old('role') == 'internal_reviewer' ? 'selected' : '' }}>Internal Reviewer</option>
+                            </select>
+                            @if ($errors->has('role'))
+                                <span class="text-danger">{{ $errors->first('role') }}</span>
+                            @endif
+                        </div>
+                    </div> -->
                     <div class="mb-3 row">
                         <label for="password" class="col-md-4 col-form-label text-md-end text-start">Password</label>
                         <div class="col-md-6">

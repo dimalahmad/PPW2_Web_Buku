@@ -4,12 +4,19 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
 <div class="container mt-5">
 
-    @if (Session::has('success'))
-    <div class="alert alert-success">
-        {{ Session::get('success') }}
-    </div>
-    @endif
+                <div class="card-body">
+                    @if ($message = Session::get('success'))
+                        <div class="alert alert-success">
+                            {{ $message }}
+                        </div>
+                    @else
+                        <div class="alert alert-success">
+                            You are logged in!
+                        </div>
+                    @endif
+                </div>
     <!-- Tombol Create -->
+    
     @if (Auth::User()->level == 'admin')
     <div class="mb-3">
         <a href="{{ route('create') }}" class="btn btn-primary">
@@ -17,17 +24,22 @@
         </a>
     </div>
     @endif
+    @if (Auth::User()->level == 'internal_reviewer' || Auth::User()->level == 'admin')
+    <div class="mb-3">
+        <a href="{{route('reviews.create')}}" class="btn btn-secondary">
+            Review Buku 
+        </a>
+    @endif
     @if (@session('status'))
-    <script>
-        alert('{{ session('
-            status ') }}');
-    </script>
+        <script>
+            alert('{{ session('status') }}');
+        </script>
     @endif
 
-    <table class="bg-secondary datatable align-middle table table-light table-striped text-center">
+    <table  class="datatable align-middle table table-light table-striped text-center">
         <thead class="thead-light">
             <tr class="table-primary">
-                <th scope="col" class="text-center">NO</th>
+                <th scope="col">NO</th>
                 <th scope="col">ID</th>
                 <th scope="col">Gambar</th>
                 <th scope="col">Judul</th>
@@ -45,28 +57,29 @@
                 <td>{{ $book->id }}</td>
                 <td>
                     <img src="{{ asset('storage/img/'.$book->image) }}" class="rounded"
-                        style="width: 150px">
+                    style="width: 150px">
                 </td>
                 <td>{{ $book->title }}</td>
                 <td>{{ $book->author }}</td>
                 <td>{{ "Rp" . number_format($book->harga, 2, ',', '.') }}</td>
                 <td>{{ $book->tanggal_terbit }}</td>
 
-
+                
                 <td>
                     @if (Auth::User()->level == 'admin')
-                    <!-- Form untuk Delete -->
-                    <form action="{{ route('destroy', $book->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus buku ini?')" class="d-inline">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                    </form>
-                    <!-- Tombol Edit -->
-                    <a href="{{ route('edit', $book->id) }}" class="btn btn-info btn-sm">Edit</a>
+                        <!-- Form untuk Delete -->
+                        <form action="{{ route('destroy', $book->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus buku ini?')" class="d-inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                        <!-- Tombol Edit -->
+                        <a href="{{ route('edit', $book->id) }}" class="btn btn-info btn-sm">Edit</a>
                     @endif
                     <!-- Tombol Detail yang sama untuk Admin dan User -->
                     <a href="{{ route('books.show', $book->id) }}" class="btn btn-primary btn-sm">Detail</a>
-                </td>
+                    <a href="{{ route('reviews.show', $book->id) }}" class="btn btn-secondary btn-sm">Review</a>
+                </td>   
             </tr>
             @endforeach
         </tbody>
