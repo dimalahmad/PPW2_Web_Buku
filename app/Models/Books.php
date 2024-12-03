@@ -19,5 +19,15 @@ class Books extends Model
     {
         return $this->hasMany(Review::class);
     }
-    
+    public function scopeEditorialPick($query)
+    {
+        return $query->where('editorial_pick', true)->limit(5);
+    }
+    public function getDiscountedPriceAttribute()
+    {
+        if ($this->discount > 0) {
+            return $this->harga - ($this->harga * $this->discount / 100);
+        }
+        return $this->harga;
+    }
 }

@@ -9,16 +9,17 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('galleries', function (Blueprint $table) {
-        $table->id();
-        $table->foreignId('book_id')->constrained()->onDelete('cascade'); // Relasi ke tabel books
-        $table->string('image'); // Kolom untuk menyimpan gambar
-        $table->timestamps();
-    });
+            $table->id();
+            $table->foreignId('book_id')->constrained('books')->onDelete('cascade');
+            $table->string('image');
+            $table->string('caption');
+            $table->timestamps();
+        });
     }
-
+    
     /**
      * Reverse the migrations.
      */

@@ -17,6 +17,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/buku/{id}/detail', [BooksController::class, 'show'])->name('books.show');
     Route::get('/reviews/{id}/show', [ReviewController::class, 'show'])->name('reviews.show');
     Route::get('/tags/{tag}', [ReviewController::class, 'showBooksByTag'])->name('tags.show');
+    Route::get('/books/search', [BooksController::class, 'search'])->name('books.search');
+    Route::patch('/buku/{id}/toggle-editorial-pick', [BooksController::class, 'toggleEditorialPick'])->name('toggleEditorialPick');
 
     // Admin-specific routes with 'auth' and 'admin' middleware
     Route::middleware(['admin'])->group(function () {
