@@ -19,7 +19,7 @@
 
     <!-- Tombol Create (Admin Only) -->
     @if (Auth::User()->level == 'admin')
-    <div class="mb-3 text-end">
+    <div class="mb-3">
         <a href="{{ route('create') }}" class="btn btn-primary">
             Create New Book
         </a>
@@ -28,7 +28,7 @@
 
     <!-- Tombol Review (Internal Reviewer/Admin) -->
     @if (Auth::User()->level == 'internal_reviewer' || Auth::User()->level == 'admin')
-    <div class="mb-3 text-end">
+    <div class="mb-3">
         <a href="{{ route('reviews.create') }}" class="btn btn-secondary">
             Review Book
         </a>
