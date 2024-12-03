@@ -31,7 +31,7 @@
                 <!-- Diskon -->
                 <div class="mb-3">
                     <label for="discount" class="form-label">Diskon (%)</label>
-                    <input type="number" name="discount" id="discount" class="form-control" placeholder="Masukkan diskon (0-100)" value="{{ old('discount', $book->discount ?? 0) }}">
+                    <input type="number" name="discount" id="discount" class="form-control" placeholder="Masukkan diskon (0-100)" value="{{ old('discount', $books->discount ?? 0) }}">
                 </div>
 
                 <!-- Input untuk Tanggal Terbit -->
